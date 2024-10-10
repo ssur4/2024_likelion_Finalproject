@@ -1,0 +1,11 @@
+cln=team3cluster.lion.nyhhs.com
+ig1=control-plane-ap-northeast-2a
+# ig2=control-plane-ap-northeast-2b
+# ig3=control-plane-ap-northeast-2c
+igw1=nodes-ap-northeast-2a
+# igw2=nodes-ap-northeast-2b
+# igw3=nodes-ap-northeast-2c
+aws autoscaling update-auto-scaling-group --auto-scaling-group-name ${ig1}.masters.${cln} --desired-capacity $1
+# aws autoscaling update-auto-scaling-group --auto-scaling-group-name ${ig2}.masters.${cln} --desired-capacity $1
+# aws autoscaling update-auto-scaling-group --auto-scaling-group-name ${ig3}.masters.${cln} --desired-capacity $1
+aws autoscaling update-auto-scaling-group --auto-scaling-group-name ${igw1}.${cln} --desired-capacity $1
