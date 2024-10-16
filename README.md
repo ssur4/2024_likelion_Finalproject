@@ -8,4 +8,4 @@
   - AWS 클라우드 인프라 구축
   - kops 활용,  kubernetes cluster 구축
   - k8s cluster 내 Servise Mesh (Istio) 구현
-  - On-premise ~ AWS Cloud 간 VPN 구성
+  - On-premise <-> AWS Cloud 간 VPN 구성
