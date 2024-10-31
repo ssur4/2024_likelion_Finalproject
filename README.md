@@ -2,6 +2,7 @@
 - 주제 : RHOCP/AWS 를 활용한 하이브리드 클라우드 구축
 - 기간 : '24. 9. 30. ~ 11. 1.
 
+<br></br>
 
 ## 사용 기술 스택/도구
 - `RHEL`, `Kubernetes`, `MySQL`, `AWS RDS`,  `Prometheus`, `Grafana` , `Jenkins` , `ArgoCD`
@@ -10,6 +11,7 @@
 - `Node.js` , `HTML` , `CSS` , `Javascript`
 - `Slack` ,  `Git` , `Jira` , `Trello`
 
+<br></br>
 
 ## 담당
   - Project Leader (부팀장)
