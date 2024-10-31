@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: team3-back-server
+  namespace: test
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backend
+      annotations:
+        sidecar.istio.io/inject: "true" #istio 사이드카 주입 활성화
+    spec:
+      containers:
+      - name: backend
+        image: 061039804626.dkr.ecr.ap-northeast-2.amazonaws.com/team3/final_back_test:jenkins
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+        env:
+        - name: NODE_ENV
+          valueFrom: 
+            secretKeyRef:
+              name: back-secret 
+              key: node_env
+        - name: MYSQL_HOST
+          valueFrom:
+            secretKeyRef:
+              name: back-secret
+              key: mysql_host
+        - name: MYSQL_PORT
+          valueFrom:
+            secretKeyRef:
+              name: back-secret
+              key: mysql_port
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: back-secret
+              key: mysql_database
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: back-secret
+              key: mysql_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: back-secret
+              key: mysql_password
+        - name: PORT
+          value: "8000"
+      imagePullSecrets:
+      - name: ecr-secret
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: team3-back-svc
+  namespace: test 
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+  - port: 8000
+    targetPort: 8000

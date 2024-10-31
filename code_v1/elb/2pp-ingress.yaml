@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: team3-ingress
+  namespace: test
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/subnets: subnet-016cb9ff0859b3eab,subnet-0850de8ce3b85b04f  # 외부노출하기 때문에  퍼블릭서브넷ID
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/group.name: team3
+    alb.ingress.kubernetes.io/load-balancer-name: team3-alb
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:061039804626:certificate/dceb123a-f00d-4b1d-9149-270e2c598812"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/healthcheck-path: "/"
+    alb.ingress.kubernetes.io/backend-protocol: HTTPS
+spec:
+  ingressClassName: alb
+  rules:
+  - host: 2pp.lion2.nyhhs.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: team3-front-svc
+            port: 
+              number: 9443
