@@ -1,0 +1,77 @@
+# [ec2-user@~/been/cron] kops get cluster -o yaml
+---
+apiVersion: kops.k8s.io/v1alpha2
+kind: Cluster
+metadata:
+  creationTimestamp: "2024-10-23T07:50:19Z"
+  generation: 3
+  name: team3cluster.lion.nyhhs.com
+spec:
+  api:
+    loadBalancer:
+      class: Network
+      type: Public
+  authorization:
+    rbac: {}
+  awsLoadBalancerController:
+    enabled: true
+  certManager:
+    enabled: true
+  channel: stable
+  cloudProvider: aws
+  configBase: s3://team3cluster.lion2.nyhhs.com/team3cluster.lion.nyhhs.com
+  etcdClusters:
+  - cpuRequest: 200m
+    etcdMembers:
+    - encryptedVolume: true
+      instanceGroup: control-plane-ap-northeast-2a
+      name: a
+    manager:
+      backupRetentionDays: 90
+    memoryRequest: 100Mi
+    name: main
+  - cpuRequest: 100m
+    etcdMembers:
+    - encryptedVolume: true
+      instanceGroup: control-plane-ap-northeast-2a
+      name: a
+    manager:
+      backupRetentionDays: 90
+    memoryRequest: 100Mi
+    name: events
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+  kubelet:
+    anonymousAuth: false
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  - ::/0
+  kubernetesVersion: 1.30.2
+  networkCIDR: 10.3.0.0/16
+  networking:
+    calico: {}
+  nonMasqueradeCIDR: 100.64.0.0/10
+  sshAccess:
+  - 0.0.0.0/0
+  - ::/0
+  subnets:
+  - cidr: 10.3.0.0/24
+    name: ap-northeast-2a
+    type: Private
+    zone: ap-northeast-2a
+  - cidr: 10.3.1.0/24
+    name: ap-northeast-2b
+    type: Private
+    zone: ap-northeast-2b
+  - cidr: 10.3.10.0/24
+    name: utility-ap-northeast-2a
+    type: Utility
+    zone: ap-northeast-2a
+  - cidr: 10.3.11.0/24
+    name: utility-ap-northeast-2b
+    type: Utility
+    zone: ap-northeast-2b
+  topology:
+    dns:
+      type: None
